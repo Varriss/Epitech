@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** MUL_my_runner_2019
+** Model
 ** File description:
 ** tools
 */
@@ -11,7 +11,7 @@ int find_char_pos(char *str, char to_find)
 {
     int i = 0;
 
-    if (!str)
+    if ((!str) || (!to_find))
         return (-1);
     for (; str[i] != '\0'; i++)
         if (str[i] == to_find)

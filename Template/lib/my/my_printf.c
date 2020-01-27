@@ -1,13 +1,13 @@
 /*
 ** EPITECH PROJECT, 2019
-** PSU_my_printf_2019
+** Model
 ** File description:
 ** my_printf
 */
 
 #include "my.h"
 
-static func_tab p_f_t_[] = {
+static func_tab_t p_f_t_[] = {
     {'s', &my_putstr},
     {'S', &my_super_putstr},
     {'o', &my_put_octal_nbr},

@@ -9,6 +9,8 @@
 
 int is_anum(char c)
 {
+    if (!c)
+        return (84);
     if (('0' <= c && c <= '9')
     || ('a' <= c && c <= 'z')
     || ('A' <= c && c <= 'Z'))

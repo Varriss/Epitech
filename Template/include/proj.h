@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** CPE_matchstick_2019
+** Model
 ** File description:
 ** proj
 */

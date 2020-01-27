@@ -26,6 +26,8 @@ void my_super_putstr(char *src)
 
 int my_putstr(char const *str)
 {
+    if ((!str) || (str == NULL))
+        return (84);
     for (int i = 0; str[i] != '\0'; i++)
         write(1 , &str[i], 1);
     return (0);
@@ -36,6 +38,8 @@ int my_put_nbr(int nb)
     int display;
     char neg = '-';
 
+    if (!nb)
+        return (0);
     if (nb < 0) {
         nb *= -1;
         write(1, &neg, 1);
@@ -55,20 +59,24 @@ int my_put_nbr(int nb)
 
 void my_putchar(char c)
 {
-    write(1, &c, 1);
+    if (c)
+        write(1, &c, 1);
 }
 
 void my_put_base_nbrs(unsigned int src, char *base)
 {
-    int base_len = my_strlen(base);
+    int base_len = 0;
     int rank = src;
     char c = '\0';
 
-    if (src >= base_len) {
-        rank = src % base_len;
-        src /= base_len;
-        my_put_base_nbrs(src, base);
+    if ((base) && (base != NULL)) {
+        base_len = my_strlen(base);
+        if (src >= base_len) {
+            rank = src % base_len;
+            src /= base_len;
+            my_put_base_nbrs(src, base);
+        }
+        c = base[rank];
+        write(1, &c, 1);
     }
-    c = base[rank];
-    write(1, &c, 1);
 }

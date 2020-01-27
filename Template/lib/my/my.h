@@ -27,13 +27,13 @@ typedef struct tab_of_function_pointer
 {
     char ind;
     void *(*foo)(void *);
-} func_tab;
+} func_tab_t;
 typedef struct chained_list
 {
     int val;
     struct chained_list *prev;
     struct chained_list *next;
-} chain_l;
+} chain_l_t;
 
 //
 // PRINTF
@@ -62,14 +62,14 @@ char *my_prompt(char *mail);
 //
 // chained list functions
 //
-chain_l *create_chaine(void);
-void del_chain(chain_l *list);
-void del_chain_ele(chain_l *elem);
-void add_elem_before(chain_l *elem, int nb);
-void add_elem_after(chain_l *elem, int nb);
-int chain_len(chain_l *elem);
-chain_l *sail_chain(chain_l *position, int shift);
-void disp_chain_vals(chain_l *root);
+chain_l_t *create_chaine(void);
+void del_chain(chain_l_t *list);
+void del_chain_ele(chain_l_t *elem);
+void add_elem_before(chain_l_t *elem, int nb);
+void add_elem_after(chain_l_t *elem, int nb);
+int chain_len(chain_l_t *elem);
+chain_l_t *sail_chain(chain_l_t *position, int shift);
+void disp_chain_vals(chain_l_t *root);
 
 //
 // char/nbrs check functions
@@ -78,6 +78,7 @@ int my_isnumber(char c);
 int is_negative(char const *str, int mk1);
 int my_str_isnum(char *str);
 int my_getnbr(char const *str);
+int is_anum(char c);
 
 //
 // str transfo functions

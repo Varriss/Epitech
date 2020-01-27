@@ -7,14 +7,14 @@
 
 #include "my.h"
 
-// return (1) if not a number or no str
+// return (84) if no str and (1) if not a nbr
 
 int my_str_isnum(char *str)
 {
     int i = 0;
 
     if (!str)
-        return (1);
+        return (84);
     if (str[0] == '-')
         i++;
     for (; str[i] != '\0'; i++) {

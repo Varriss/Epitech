@@ -9,7 +9,9 @@
 
 void initialize_str(char *src, int size)
 {
-    for (int i = 0; i < size; i++)
-        src[i] = '0';
-    src[size - 1] = '\0';
+    if (!((!src) || (src == NULL) || (!size) || (size <= 0))) {
+        for (int i = 0; i < size; i++)
+            src[i] = '0';
+        src[size - 1] = '\0';
+    }
 }

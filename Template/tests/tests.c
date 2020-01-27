@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** Project_tests
+** Project_tests_model
 ** File description:
 ** tests
 */
@@ -10,7 +10,6 @@
 
 Test(test_group, test_name)
 {
-    cr_assert_eq(int, equal);
-    cr_assert_str_eq(str *, equal);
-    
+    cr_assert_eq(call_int_return(), equal);
+    cr_assert_str_eq(call_str_return(), equal);
 }

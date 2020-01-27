@@ -8,22 +8,12 @@
 
 #include "my.h"
 
-int is_alphanum(char c)
-{
-    if (('0' <= c && c <= '9')
-    || ('a' <= c && c <= 'z')
-    || ('A' <= c && c <= 'Z'))
-        return (1);
-    else
-        return (0);
-}
-
 int count_words(char const *str)
 {
     int nb_words = 0;
 
     for (int i = 0; str[i] != '\0'; i++) {
-        if (is_alphanum(str[i]) && !is_alphanum(str[i + 1]))
+        if (is_anum(str[i]) && !is_anum(str[i + 1]))
             nb_words++;
     }
     return (nb_words);
@@ -35,9 +25,9 @@ void malloc_the_words(char **dest, char const *src)
     int word = 0;
 
     for (int i = 0; src[i] != '\0' ; i++) {
-        if (is_alphanum(src[i]))
+        if (is_anum(src[i]))
             this_word_size++;
-        if (is_alphanum(src[i]) && !is_alphanum(src[i + 1])) {
+        if (is_anum(src[i]) && !is_anum(src[i + 1])) {
             dest[word] = malloc(sizeof(char) * (this_word_size + 1));
             dest[word][this_word_size] = '\0';
             word++;
@@ -51,11 +41,11 @@ void store_the_words(char ** dest, char const *src, int nb_words)
     int c = 0;
 
     for (int i = 0; word < nb_words; i++) {
-        if (is_alphanum(src[i]) == 1) {
+        if (is_anum(src[i]) == 1) {
             dest[word][c] = src[i];
             c++;
         }
-        if (is_alphanum(src[i]) && !is_alphanum(src[i + 1])) {
+        if (is_anum(src[i]) && !is_anum(src[i + 1])) {
             c = 0;
             word++;
         }

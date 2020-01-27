@@ -1,15 +1,15 @@
 /*
 ** EPITECH PROJECT, 2019
-** CPE_pushswap_2019
+** Model
 ** File description:
 ** my_chain_funcs_2
 */
 
 #include "my.h"
 
-int chain_len(chain_l *elem)
+int chain_l_ten(chain_l_t *elem)
 {
-    chain_l *root = elem;
+    chain_l_t *root = elem;
     int i = 1;
 
     if (elem == NULL)
@@ -21,18 +21,24 @@ int chain_len(chain_l *elem)
     return (i);
 }
 
-void disp_chain_vals(chain_l *elem)
+void disp_chain_vals(chain_l_t *elem)
 {
-    int len = chain_len(elem);
+    int len = chain_l_ten(elem);
 
-    for (int i = 0; (i < len) && (elem->next != 0); i++, elem = elem->next) {
-        my_put_nbr(elem->val);
-        my_putchar('\n');
-    }
+    if (elem)
+        for (int i = 0; (i < len) && (elem->next != 0); i++) {
+            my_put_nbr(elem->val);
+            my_putchar('\n');
+            elem = elem->next;
+        }
 }
 
-chain_l *sail_chain(chain_l *position, int shift)
+chain_l_t *sail_chain(chain_l_t *position, int shift)
 {
+    if ((!position) || (position == NULL))
+        return (NULL);
+    if ((!shift) || (shift == 0))
+        return (position);
     if (shift < 0) {
         shift *= -1;
         for (int i = 0; (i < shift) && (position->prev != 0);
