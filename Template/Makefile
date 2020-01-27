@@ -11,14 +11,20 @@
 
 SRC	=	...
 
-SRC_TESTS	=		tests/tests.c	\
-					tests/tests_errors_handling.c
+OSRC	=	$(SRC:.c=.o)
+
+SRC_TESTS	=	tests/tests.c	\
+	tests/tests_errors_handling.c
+
+OSRC_T	=	$(SRC_TESTS:.c=.o)
 
 #########
 # Mains #
 #########
 
 SRC_MAIN	=	main.c
+
+OSRC_M	=	$(SRC_MAIN:.c=.o)
 
 ################
 # Binary names #
@@ -38,7 +44,7 @@ COVERAGE	=	gcovr --exclude tests/
 
 COVERAGE_B	=	gcovr --exclude tests/ -b
 
-MAKE_LIB	=	make -C lib/my/
+MAKE_LIB	=	make re -C lib/my/
 
 #########
 # Flags #
@@ -56,11 +62,10 @@ LFLAGS += -I./include/ -L./lib/my -lmy
 
 all:
 	$(MAKE_LIB)
-	gcc -o $(NAME) $(SRC) $(CFLAGS) $(SRC_MAIN) -L./lib/ -lmy -I./include
+	gcc -o $(NAME) $(OSRC) $(OSRC_M) $(CFLAGS) $(LFLAGS)
 
 tests_run:	clean
-	gcc -o $(NAME_TESTS) $(SRC_TESTS) $(SRC) $(TFLAGS) $(LFLAGS) \
-	$(CFLAGS)
+	gcc -o $(NAME_TESTS) $(OSRC_T) $(OSRC) $(TFLAGS) $(LFLAGS) $(CFLAGS)
 	$(RUN_TESTS)
 
 coverage:

@@ -22,17 +22,7 @@ static func_tab p_f_t_[] = {
     {'\0', 0}
 };
 
-int my_strlen(char *str)
-{
-    int len = 0;
-
-    if (!str)
-        return (-1);
-    while (str[len++] != '\0');
-    return (len);
-}
-
-int my_printf(char* str, ...)
+int my_printf(char *str, ...)
 {
     va_list ap;
     int j = 0;
@@ -47,7 +37,7 @@ int my_printf(char* str, ...)
             if (str[i] == '%')
                 write(1, "%", 1);
             else
-                p_f_t_[j].foo(va_arg(ap, void*));
+                p_f_t_[j].foo(va_arg(ap, void *));
         } else
             write(1, &str[i], 1);
     }

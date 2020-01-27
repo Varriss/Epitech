@@ -7,17 +7,21 @@
 
 #include "my.h"
 
-char *my_strcat(char *dest, char const *src)
+char *my_strcat(char *first, char *secon)
 {
-    int res_size = my_strlen(dest) + my_strlen(src);
-    int i;
-    char *res;
+    int i = 0;
+    int first_len = (!first ? 0 : find_char_pos(first, '\0'));
+    int secon_len = (!secon ? 0 : find_char_pos(secon, '\0'));
+    char *concated = malloc(sizeof(char) * ((first_len + secon_len) + 1));
 
-    res = malloc(res_size + 1);
-    for (i = 0; dest[i]; i++)
-        res[i] = dest[i];
-    for (int j = 0; src[j]; i++, j++)
-        res[i] = src[j];
-    res[i] = '\0';
-    return (res);
+    if (first)
+        for (; i < first_len; i++)
+            concated[i] = first[i];
+    if (secon)
+        for (; i < (first_len + secon_len); i++)
+            concated[i] = secon[i - first_len];
+    concated[(first_len + secon_len)] = '\0';
+    free(first);
+    free(secon);
+    return (concated);
 }

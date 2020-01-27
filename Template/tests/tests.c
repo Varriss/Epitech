@@ -10,5 +10,7 @@
 
 Test(test_group, test_name)
 {
-    cr_assert_eq();
+    cr_assert_eq(int, equal);
+    cr_assert_str_eq(str *, equal);
+    
 }

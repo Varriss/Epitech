@@ -11,5 +11,7 @@
 
 Test(Test_group, test_name, .init = cr_redirect_stdout)
 {
+    call_function();
     cr_assert_stdout_eq_str("syntax error");
+    cr_assert_stdout_eq(84);
 }

@@ -35,10 +35,10 @@ chain_l *sail_chain(chain_l *position, int shift)
 {
     if (shift < 0) {
         shift *= -1;
-        for (int i = 0; (i < shift) && (position->prev != 0)
-        ; position = position->prev, i++);
+        for (int i = 0; (i < shift) && (position->prev != 0);
+        position = position->prev, i++);
     } else if (shift > 0)
-        for (int i = 0; (i < shift) && (position->prev != 0)
-        ; position = position->next, i++);
+        for (int i = 0; (i < shift) && (position->prev != 0);
+        position = position->next, i++);
     return (position);
 }

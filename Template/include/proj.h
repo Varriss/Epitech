@@ -10,9 +10,9 @@
 
 #include "my.h"
 
-/*********************
- * project functions *
- *********************/
+//
+// project functions
+//
 
 
 #endif /* !PROJ_H_ */

@@ -7,8 +7,6 @@
 
 #include "my.h"
 
-
-
 int is_negative(char const *str, int mk1)
 {
     if (str[mk1-1] == '-')
@@ -29,9 +27,9 @@ int my_getnbr(char const *str)
     int tmp = 0;
     int stop = ((str[0] == '-') | (str[0] == '+')) ? 1 : 0;
 
-    for (int i = my_strlen(str) - 1; i >= stop; i--) {
+    for (int i = my_strlen(str) - 1; i > stop; i--) {
         tmp = my_compute_power_rec(10, pow);
-        tmp *= my_char_int_conv(str[i]);
+        tmp *= my_char_int_conv(str[i - 1]);
         pow++;
         result += tmp;
     }

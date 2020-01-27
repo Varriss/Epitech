@@ -21,7 +21,10 @@ SRC 	=	my_printf.c	\
 	my_strlen.c	\
 	my_strncat.c\
 	my_strncpy.c\
-	my_str_to_word_array.c
+	my_str_to_word_array.c	\
+	get_next_line.c	\
+	get_next_line_tools.c	\
+	my_prompt.c
 
 HEADERS	=	my.h
 

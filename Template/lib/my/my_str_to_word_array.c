@@ -53,7 +53,7 @@ void store_the_words(char ** dest, char const *src, int nb_words)
     for (int i = 0; word < nb_words; i++) {
         if (is_alphanum(src[i]) == 1) {
             dest[word][c] = src[i];
-           c++;
+            c++;
         }
         if (is_alphanum(src[i]) && !is_alphanum(src[i + 1])) {
             c = 0;
@@ -71,7 +71,7 @@ char **my_str_to_word_array(char *src)
         return (0);
     else {
         nb_words = count_words(src);
-        dest = malloc(sizeof(char*) * (nb_words + 1));
+        dest = malloc(sizeof(char *) * (nb_words + 1));
         dest[nb_words] = 0;
         malloc_the_words(dest, src);
         store_the_words(dest, src, nb_words);
