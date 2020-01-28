@@ -24,7 +24,10 @@ SRC 	=	my_printf.c	\
 	my_str_to_word_array.c	\
 	get_next_line.c	\
 	get_next_line_tools.c	\
-	my_prompt.c
+	my_prompt.c	\
+	my_free.c	\
+	str_cmp_ncmp.c	\
+	str_to_tab.c
 
 HEADERS	=	my.h
 
@@ -36,16 +39,12 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	ar rc ./$(NAME) $(OBJ)
-	cp ./$(NAME) ../
-	cp ./$(HEADERS) ../../include/
 
 clean:
-	rm -f $(OBJ)
+	rm -f *.o
 
 fclean:	clean
 	rm -f $(NAME)
-	rm -f ../$(NAME)
-	rm -f ../../include/my.h
 
 re:	fclean all
 

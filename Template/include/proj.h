@@ -8,7 +8,7 @@
 #ifndef PROJ_H_
 #define PROJ_H_
 
-#include "my.h"
+#include "../include/lib/my/my.h"
 
 //
 // project functions

@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <wait.h>
 
 //
 // structs
@@ -58,6 +59,9 @@ char *get_next_line(int fd);
 int find_char_pos(char *str, char to_find);
 char *get_pre_aft(char *buff, int mode, int split, int buff_len);
 char *my_prompt(char *mail);
+int get_next_word_len(char const *str, int rank, char split);
+char *get_next_split(char const *str, char split);
+int count_split(char const *str, char split);
 
 //
 // chained list functions
@@ -90,6 +94,10 @@ char *my_strcpy(char *dest, char const *src);
 char *my_strncat(char *dest, char const *src, int n);
 char *my_strncpy(char *dest, char const *src, int n);
 void initialize_str(char *src, int size);
+char **str_to_tab(char const *str);
+int str_cmp(char *one, char *two);
+int str_ncmp(char *one, char *two, int n);
+void free_tab(char **tab);
 
 //
 // compute functions
