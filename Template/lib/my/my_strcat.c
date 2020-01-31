@@ -10,8 +10,8 @@
 char *my_strcat(char *first, char *secon)
 {
     int i = 0;
-    int first_len = (!first ? 0 : find_char_pos(first, '\0'));
-    int secon_len = (!secon ? 0 : find_char_pos(secon, '\0'));
+    int first_len = (!first ? 0 : my_strlen(first) - 1);
+    int secon_len = (!secon ? 0 : my_strlen(secon) - 1);
     char *concated = malloc(sizeof(char) * ((first_len + secon_len) + 1));
 
     if (first)

@@ -38,8 +38,6 @@ int my_put_nbr(int nb)
     int display;
     char neg = '-';
 
-    if (!nb)
-        return (0);
     if (nb < 0) {
         nb *= -1;
         write(1, &neg, 1);

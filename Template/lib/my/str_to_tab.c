@@ -39,6 +39,8 @@ char *get_next_split(char const *str, char split)
         }
     }
     word[word_len] = '\0';
+    if (str[rank] == '\0')
+        rank = 0;
     return (word);
 }
 
@@ -49,7 +51,7 @@ int count_split(char const *str, char split)
     int splits = 0;
 
     for (int i = 0; str[i] != '\0'; i++)
-        if ((str[i] != split) && (str[i - 1] == split))
+        if ((str[i] != split) && ((i > 0) && (str[i - 1] == split)))
             splits++;
     return (splits);
 }
@@ -60,9 +62,8 @@ char **str_to_tab(char const *str)
     int words = 1 + count_split(str, ' ');
 
     tab = malloc(sizeof(char *) * (words + 1));
-    for (int i = 0; i < words; i++) {
+    for (int i = 0; i < words; i++)
         tab[i] = get_next_split(str, ' ');
-    }
     tab[words] = 0;
     return (tab);
 }

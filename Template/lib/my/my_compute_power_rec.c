@@ -9,8 +9,6 @@
 
 int my_compute_power_rec(int nb, int p)
 {
-    if ((!p) || (!nb))
-        return (0);
     if (p == 0)
         return (1);
     if (nb < 0) {

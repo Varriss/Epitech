@@ -87,7 +87,7 @@ fclean: clean
 	find -type f -name "*.a" -delete
 	find -type f -name "*.gcno" -delete
 	find -type f -name "*.gcda" -delete
-	find -type f -name ".vgcore.*" -delete
+	find -type f -name "vgcore.*" -delete
 
 re:	fclean all
 
