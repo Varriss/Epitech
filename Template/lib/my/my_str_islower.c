@@ -1,16 +1,16 @@
 /*
 ** EPITECH PROJECT, 2019
-** MY_STR_ISNUM
+** MY_STR_ISLOWER
 ** File description:
-** No clue either
+** Tests if a string is lowercase
 */
 
 #include "./my.h"
 
-int my_str_isnum(char *str)
+int my_str_islower(char const *str)
 {
     for (int i = 0; str[i] != '\0' ; i++) {
-        if (!(('0' <= str[i] &&  str[i] <= '9'))) {
+        if (!(('a' <= str[i] &&  str[i] <= 'z'))) {
             return (1);
         }
     }

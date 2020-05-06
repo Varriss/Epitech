@@ -12,8 +12,6 @@ char *my_strncpy(char *dest, char const *src, int n)
     int i = 0;
     int size_dest = my_strlen(dest);
 
-    if ((!dest) || (!src) || (src == NULL) || (n <= 0))
-        return (NULL);
     if (n > size_dest) {
         for (int i = 0; i < n; i++) {
             dest[i] = src[i];

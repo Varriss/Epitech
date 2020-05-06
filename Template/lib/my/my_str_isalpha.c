@@ -1,16 +1,17 @@
 /*
 ** EPITECH PROJECT, 2019
-** MY_STR_ISNUM
+** MY_STR_ISALPHA
 ** File description:
-** No clue either
+** No clue tbh
 */
 
 #include "./my.h"
 
-int my_str_isnum(char *str)
+int my_str_isalpha(char const *str)
 {
     for (int i = 0; str[i] != '\0' ; i++) {
-        if (!(('0' <= str[i] &&  str[i] <= '9'))) {
+        if (!(('a' <= str[i] && str[i] <= 'z')
+        || ('A' <= str[i] && str[i] <= 'Z' ))) {
             return (1);
         }
     }

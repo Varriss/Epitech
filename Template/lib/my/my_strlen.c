@@ -5,12 +5,15 @@
 ** returns the length of an array, does not count the '\0'
 */
 
-int my_strlen(char const *str)
-{
-    int len = 0;
+#include "my.h"
 
-    if (!str)
-        return (-1);
-    while (str[len++] != '\0');
-    return (len);
+int my_strlen(char const *src)
+{
+    int length = 0;
+
+    if (!src)
+        return (length);
+    for (int i = 0; src[i]; i++)
+        length++;
+    return (length);
 }

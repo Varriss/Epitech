@@ -1,16 +1,16 @@
 /*
 ** EPITECH PROJECT, 2019
-** MY_STR_ISNUM
+** MY_STR_ISUPPER
 ** File description:
-** No clue either
+** Tests is a string is uppercase
 */
 
 #include "./my.h"
 
-int my_str_isnum(char *str)
+int my_str_isupper(char const *str)
 {
     for (int i = 0; str[i] != '\0' ; i++) {
-        if (!(('0' <= str[i] &&  str[i] <= '9'))) {
+        if (!(('A' <= str[i] &&  str[i] <= 'Z'))) {
             return (1);
         }
     }

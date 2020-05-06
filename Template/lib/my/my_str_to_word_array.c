@@ -6,65 +6,54 @@
 ** characters into an array of words
 */
 
-#include "my.h"
+#include "./my.h"
 
-int count_words(char const *str)
+#include <stdlib.h>
+
+int count_words(char *src, char c)
 {
-    int nb_words = 0;
+    int count = 0;
 
-    for (int i = 0; str[i] != '\0'; i++) {
-        if (is_anum(str[i]) && !is_anum(str[i + 1]))
-            nb_words++;
+    if (!src)
+        return (0);
+    for (int i = 0; src[i]; i++) {
+        if (src[i] == c && (src[i + 1] == '\0' | src[i + 1] != c))
+            count++;
     }
-    return (nb_words);
+    return (count);
 }
 
-void malloc_the_words(char **dest, char const *src)
+char *get_until_char(int *start_pos, char *src, char c)
 {
-    int this_word_size = 0;
-    int word = 0;
+    char *res = NULL;
+    int init_pos = *start_pos;
+    int size = 0;
 
-    for (int i = 0; src[i] != '\0' ; i++) {
-        if (is_anum(src[i]))
-            this_word_size++;
-        if (is_anum(src[i]) && !is_anum(src[i + 1])) {
-            dest[word] = malloc(sizeof(char) * (this_word_size + 1));
-            dest[word][this_word_size] = '\0';
-            word++;
-        }
-    }
+    if (!src)
+        return (NULL);
+    for (; src[*start_pos] && (src[*start_pos] != c); (*start_pos)++, size++);
+    res = malloc(size + 1);
+    res[size] = '\0';
+    for (int i = 0; i < size; i++)
+        res[i] = src[i + init_pos];
+    return (res);
 }
 
-void store_the_words(char ** dest, char const *src, int nb_words)
-{
-    int word = 0;
-    int c = 0;
-
-    for (int i = 0; word < nb_words; i++) {
-        if (is_anum(src[i]) == 1) {
-            dest[word][c] = src[i];
-            c++;
-        }
-        if (is_anum(src[i]) && !is_anum(src[i + 1])) {
-            c = 0;
-            word++;
-        }
-    }
-}
-
-char **my_str_to_word_array(char *src)
+char **my_str_to_word_array(char *src, char c)
 {
     int nb_words;
-    char **dest;
+    char **res;
+    int j = 0;
 
-    if (src == 0)
-        return (0);
-    else {
-        nb_words = count_words(src);
-        dest = malloc(sizeof(char *) * (nb_words + 1));
-        dest[nb_words] = 0;
-        malloc_the_words(dest, src);
-        store_the_words(dest, src, nb_words);
-        return (dest);
+    if (!src)
+        return (NULL);
+    nb_words = count_words(src, c) + 1;
+    res = malloc(sizeof(char *) * (nb_words + 1));
+    res[nb_words] = NULL;
+    for (int i = 0; i < nb_words; i++) {
+        res[i] = get_until_char(&j, src, c);
+        j++;
     }
+    return (res);
 }
+

@@ -1,14 +1,13 @@
 /*
 ** EPITECH PROJECT, 2020
-** Model main
+** MUL_my_rpg_2019
 ** File description:
 ** main
 */
 
-#include "./include/proj.h"
+#include "proj.h"
 
-int main(int argc, char **argv)
+int main(int argc, char *const *argv, char **env)
 {
-    return (0);
+    return (SUCCESS_CODE);
 }
-

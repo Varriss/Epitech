@@ -5,19 +5,16 @@
 ## Compiles my library
 ##
 
-SRC			=	$(wildcard *.c)
+SRC			=	double_circular_lists.c	\
+				list_elements.c
 
 OBJ			=	$(SRC:.c=.o)
 
-NAME		=	libmy.a
+NAME		=	liblists.a
 
-NAME_TESTS	=	unit_tests
-
-all:	$(NAME)
+all:	$(OBJ)
+	ar rc $(NAME) $(OBJ)
 	cp $(NAME) ..
-
-$(NAME):	$(OBJ)
-		ar rc $(NAME) $(OBJ)
 
 clean:
 		find -type f -name "*~" -delete -or -name "#*#" -delete
@@ -26,7 +23,7 @@ clean:
 		find -type f -name "vgcore.*" -delete
 
 fclean: clean
-		rm -f $(NAME) $(NAME_TESTS)
+		rm -f $(NAME)
 		find -type f -name "*.a" -delete
 		find -type f -name "a.out" -delete
 
