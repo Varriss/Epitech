@@ -42,4 +42,6 @@ void my_str_arr_print(char **src, char sep);
 int my_str_arr_len(char **src);
 char **my_str_arr_dup(char **src);
 int my_write(int returnval, char *src, int output);
+char *my_itoa(int nb);
+
 #endif /* !MY_H_ */
