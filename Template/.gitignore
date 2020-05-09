@@ -5,4 +5,4 @@
 *.gcda
 vgcore.*
 *.a
-...
+tests_run
