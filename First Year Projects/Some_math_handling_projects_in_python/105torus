@@ -1,0 +1,107 @@
+#!/usr/bin/python3
+##
+## EPITECH PROJECT, 2020
+## 105torus_2019
+## File description:
+## 105torus
+##
+
+import sys
+import math 
+
+def dichotomia(A, n):
+    a = 0
+    b = 1
+    count = 0
+    result = 1
+    num = "{:{align}{width}.{precision}f}"
+
+    while ((b-a) > math.pow(10, -n)):
+        x = (a+b) / 2
+        if (count >= n):
+            print("x =", num.format(x, align='<', width= n + 2, precision=n))
+        else : 
+            print ("x =", x)
+        result = A[4] * math.pow(x, 4) + A[3] * math.pow(x, 3) + A[2] * math.pow(x, 2) + A[1] * x + A[0]
+        if (result == 0) :
+            return(0)
+        elif (result < 0) :
+            a = x
+        else :
+            b = x
+        count += 1
+    return (0)
+
+def f(A, x):
+    return (A[4] * pow(x, 4) + A[3] * pow(x, 3) + A[2] * pow(x, 2) + A[1] * x 
+    + A[0])
+
+def f_deri(A, x):
+    return (4 * A[4] * pow(x, 3) + 3 * A[3] * pow(x, 2) + 2 * A[2] * x + A[1])
+
+def newton(A, n, x):
+    num = "{:{align}{width}.{precision}f}"
+    prev = num.format(x, align='<', width = n + 3, precision = n)
+    x = x - (f(A, x) / f_deri(A, x))
+    if num.format(x, align='<', width = n + 3, precision = n) != prev:
+        print("x = " + num.format(x, align='<', width = n + 3, precision = n))
+        newton(A, n, x)
+
+def secant(A, n, x0, x1):
+    tmp = x1
+    x1 = x1 - ((x1 - x0)/(f(A, x1) - f(A, x0))) * f(A, x1)
+    x0 = tmp
+    num = "{:{align}{width}.{precision}f}"
+    if(x1 != 0.5):
+        print("x = " + num.format(x1, align='<', width = n + 3, precision = n))
+    if num.format(x0, align='<', width = n + 3, precision = n) != num.format(x1,
+    align='<', width = n + 3, precision = n):
+        secant(A, n, x0, x1)
+
+def taurus(opt, coord_a, n):
+    if (opt == 1):
+        dichotomia(coord_a, n)
+    elif (opt == 2):
+        print("x = 0.5")
+        newton(coord_a, n, 0.5)
+    else:
+        print("x = 0.5")
+        secant(coord_a, n, 0, 1)
+
+def disp_usage(crash):
+    print("USAGE\n\t/105torus opt a0 a1 a2 a3 a4 n\n", end="\n")
+    print("DESCRIPTION\n\topt\tmethod option:")
+    print("\t\t\t1 for the bisection method\n\t\t\t2 for Newton's method")
+    print("\t\t\t3 for the secant method\n", end="")
+    print("\ta[0-4]\tcoefficients of the equation\n", end="")
+    print("\tn\tprecision (the application of the polyonminal to", end="")
+    print("the solution should be smaller than 10^-n\n", end="")
+    if (crash == 1):
+        exit(84)
+    else:
+        exit(0)
+
+def main(args):
+    if (len(args) == 1):
+        return (84)
+    if (args[1] == "-h"):
+        disp_usage(0)
+    if (len(args) != 8):
+        return (84)
+    try :
+        opt = int(sys.argv[1])
+        coord_a = [int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
+        , int(sys.argv[5]), int(sys.argv[6])]
+        n = int(sys.argv[7])
+    except :
+        return(84)
+    if (n < 0):
+        return (84)
+    if (opt < 1 or opt > 3): 
+        return (84)
+    taurus(opt, coord_a, n)
+    return (0)
+
+if __name__ == "__main__":
+    a = main(sys.argv)
+    exit (a)

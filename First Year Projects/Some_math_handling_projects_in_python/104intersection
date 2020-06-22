@@ -1,0 +1,167 @@
+#!/usr/bin/python3
+##
+## EPITECH PROJECT, 2019
+## Maths
+## File description:
+## 104intersection
+##
+
+import sys
+import math
+
+def p_2(nbr):
+    return (nbr * nbr)
+
+def get_cone_val(Xord, Yord, Zord, Xcoef, Ycoef, Zcoef, teta):
+    arr = [[]]
+    a = p_2(Xcoef) + p_2(Ycoef) - p_2(Zcoef) * p_2(math.tan(math.radians(teta)))
+    b = (2 * Xord * Xcoef) + (2 * Yord * Ycoef) - (2 * Zord * Zcoef) * p_2(math.tan(math.radians(teta)))
+    c = p_2(Xord) + p_2(Yord) - p_2(Zord) * p_2(math.tan(math.radians(teta)))
+    delta = p_2(b) - (4 * a * c)
+
+    print ("Line passing through the point (" + str(Xord) + ", " + str(Yord) + ", "+ str(Zord) + ") and parallel to the vector (" + str(Xcoef) + ", " + str(Ycoef) + ", "+ str(Zcoef) + ")")
+    if (Xcoef == 0 and Ycoef == 0):
+        print ("There is an infinite number of intersection points.")
+        exit (0)
+    if delta > 0 :
+        t1 = (-b + math.sqrt((p_2(b)) - (4 * a * c))) / (2 * a)
+        t2 = (-b - math.sqrt((p_2(b)) - (4 * a * c))) / (2 * a)
+        arr[0].append(Xord + Xcoef * t1)
+        arr[0].append(Yord + Ycoef * t1)
+        arr[0].append(Zord + Zcoef * t1)
+        arr.append([])
+        arr[1].append(Xord + Xcoef * t2)
+        arr[1].append(Yord + Ycoef * t2)
+        arr[1].append(Zord + Zcoef * t2)
+        return (arr)
+    if delta == 0 :
+        t0 = (-b) / (2 * a)
+        arr[0].append(Xord + Xcoef * t0)
+        arr[0].append(Yord + Ycoef * t0)
+        arr[0].append(Zord + Zcoef * t0)
+        return (arr)
+    if delta < 0 :
+        print ("No intersection point.")
+        exit (0)
+
+def get_cylinder_val(Xord, Yord, Zord, Xcoef, Ycoef, Zcoef, radius):
+    arr = [[]]
+    a = p_2(Xcoef) + p_2(Xord) + p_2(Ycoef) + p_2(Yord)
+    b = (2 * Xord * Xcoef) + (2 * Yord * Ycoef)
+    c = p_2(Xord) + p_2(Yord) - p_2(radius)
+    delta = p_2(b) - (4 * a * c)
+
+    print ("Line passing through the point (" + str(Xord) + ", " + str(Yord) + ", "+ str(Zord) + ") and parallel to the vector (" + str(Xcoef) + ", " + str(Ycoef) + ", "+ str(Zcoef) + ")")
+    if ((Xcoef == 0 and Ycoef == 0) and (math.sqrt(p_2(Xord)) <= radius) and (math.sqrt(p_2(Yord)) <= radius)):
+        print ("There is an infinite number of intersection points.")
+        exit (0)
+    if delta > 0 :
+        t1 = (-b + math.sqrt((p_2(b)) - (4 * a * c))) / (2 * a)
+        t2 = (-b - math.sqrt((p_2(b)) - (4 * a * c))) / (2 * a)
+        arr[0].append(Xord + Xcoef * t1)
+        arr[0].append(Yord + Ycoef * t1)
+        arr[0].append(Zord + Zcoef * t1)
+        arr.append([])
+        arr[1].append(Xord + Xcoef * t2)
+        arr[1].append(Yord + Ycoef * t2)
+        arr[1].append(Zord + Zcoef * t2)
+        return (arr)
+    if delta == 0 :
+        t0 = (-b) / (2 * a)
+        arr[0].append(Xord + Xcoef * t0)
+        arr[0].append(Yord + Ycoef * t0)
+        arr[0].append(Zord + Zcoef * t0)
+        return (arr)
+    if delta < 0 :
+        print ("No intersection point.")
+    exit (0)
+
+def get_sphere_val(Xord, Yord, Zord, Xcoef, Ycoef, Zcoef, radius):
+    arr = [[]]
+    a = p_2(Xcoef) + p_2(Ycoef) + p_2(Zcoef)
+    b = (-2)*((Xcoef)*(-Xord) + (Ycoef)*(-Yord) + (Zcoef)*(-Zord))
+    c = p_2(-Xord) + p_2(-Yord) + p_2(-Zord) - p_2(radius)
+    delta = p_2(b) - (4 * a * c)
+
+    print ("Line passing through the point (" + str(Xord) + ", " + str(Yord) + ", "+ str(Zord) + ") and parallel to the vector (" + str(Xcoef) + ", " + str(Ycoef) + ", "+ str(Zcoef) + ")")
+    if delta > 0 :
+        t1 = (-b + math.sqrt((p_2(b)) - (4 * a * c))) / (2 * a)
+        t2 = (-b - math.sqrt((p_2(b)) - (4 * a * c))) / (2 * a)
+        arr[0].append(Xord + Xcoef * t1)
+        arr[0].append(Yord + Ycoef * t1)
+        arr[0].append(Zord + Zcoef * t1)
+        arr.append([])
+        arr[1].append(Xord + Xcoef * t2)
+        arr[1].append(Yord + Ycoef * t2)
+        arr[1].append(Zord + Zcoef * t2)
+        return (arr)
+    if delta == 0 :
+        t0 = (-b) / (2 * a)
+        arr[0].append(Xord + Xcoef * t0)
+        arr[0].append(Yord + Ycoef * t0)
+        arr[0].append(Zord + Zcoef * t0)
+        return (arr)
+    if delta < 0 :
+        print ("No intersection point.")
+        exit (0)
+
+def set_mode(args):
+    if args[1] == "1":
+        print ("Sphere of radius " + args[8])
+        arr = get_sphere_val(int(args[2]), int(args[3]), int(args[4]), int(args[5]), int(args[6]), int(args[7]), int(args[8]))
+        if len(arr) == 2 :
+            print ("2 intersection points:\n", end="")
+            print ("(" + "%.3f" % arr[0][0] + ", " + "%.3f" % arr[0][1] + ", " + "%.3f" % arr[0][2] +")\n", end="")
+            print ("(" + "%.3f" % arr[1][0] + ", " + "%.3f" % arr[1][1] + ", " + "%.3f" % arr[1][2] +")", end="")
+        if len(arr) == 1 :
+            print ("1 intersection point:\n", end="")
+            print ("(" + "%.3f" % arr[0][0] + ", " + "%.3f" % arr[0][1] + ", " + "%.3f" % arr[0][2] +")", end="")
+    if args[1] == "2":
+        print ("Cylinder of radius " + args[8])
+        arr = get_cylinder_val(int(args[2]), int(args[3]), int(args[4]), int(args[5]), int(args[6]), int(args[7]), int(args[8]))
+        if len(arr) == 2 :
+            print ("2 intersection points:\n", end="")
+            print ("(" + "%.3f" % arr[0][0] + ", " + "%.3f" % arr[0][1] + ", " + "%.3f" % arr[0][2] +")\n", end="")
+            print ("(" + "%.3f" % arr[1][0] + ", " + "%.3f" % arr[1][1] + ", " + "%.3f" % arr[1][2] +")", end="")
+        if len(arr) == 1 :
+            print ("1 intersection point:\n", end="")
+            print ("(" + "%.3f" % arr[0][0] + ", " + "%.3f" % arr[0][1] + ", " + "%.3f" % arr[0][2] +")", end="")
+    if args[1] == "3":
+        print ("Cone with a " + args[8] + " degree angle")
+        arr = get_cone_val(int(args[2]), int(args[3]), int(args[4]), int(args[5]), int(args[6]), int(args[7]), int(args[8]))
+        if len(arr) == 2 :
+            print ("2 intersection points:\n", end="")
+            print ("(" + "%.3f" % arr[0][0] + ", " + "%.3f" % arr[0][1] + ", " + "%.3f" % arr[0][2] +")\n", end="")
+            print ("(" + "%.3f" % arr[1][0] + ", " + "%.3f" % arr[1][1] + ", " + "%.3f" % arr[1][2] +")", end="")
+        if len(arr) == 1 :
+            print ("1 intersection point:\n", end="")
+            print ("(" + "%.3f" % arr[0][0] + ", " + "%.3f" % arr[0][1] + ", " + "%.3f" % arr[0][2] +")", end="")    
+
+def disp_usage(crash):
+    print("USAGE.\n\t/104intersection opt xp yp zp xv yv zv p\n", end="\n")
+    print("DESCRIPTION\n\topt\t\tsurface option: 1 for a sphere, 2 for a cylinder, 3 for a cone\n", end="")
+    print("\t(xp, yp, zp)\tcoordinates of a point by which the light ray passes through\n", end="")
+    print("\t(xv, yv, zv)\tcoordinates of a vector parallel to the light ray\n", end="")
+    print("\tp\t\tparameter: radius of the sphere, radius of the cylinder, or\n\t\t\tangle formed by the cone and the Z-axis\n", end="")
+    if (crash == 1):
+        exit(84)
+    else:
+        exit(0)
+
+def main(args):
+    if (len(args) != 9):
+        disp_usage(1)
+    if (args[1] == "-h"):
+        disp_usage(0)
+    else:
+        if int(args[1]) > 4 or int(args[1]) < 1:
+            disp_usage(1)
+        if (args[5] == "0" and args[6] == "0" and args[7] == "0"):
+            print ("NO VECTOR → 84")
+            return (0)
+        set_mode(args)
+        print("\n", end = "")
+        return (0)
+
+if __name__ == "__main__":
+    main(sys.argv)

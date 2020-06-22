@@ -1,0 +1,37 @@
+##############################################################################
+#                                                                            #
+#    This document allows you to understand how to use the test.sh script    #
+#    --------------------------------------------------------------------    #
+#                                                                            #
+#   ¤ For the 1st test, you need a file named "hantill_test1" in the         #
+#   bonus directory. The file must contain the input for your program.       #
+#                                                                            #
+#   ¤ For the 2nd test, you  don't need any particular file.                 #
+#                                                                            #
+#   ¤ For the 3rd test, you  don't need any particular file.                 #
+#                                                                            #
+#   ¤ For the 4th test, you need 3 files : one named "hantill_basictest"     #
+#   (same as the file needed for the 1st test), a second empty file named    #
+#   "output_basictest" (it will contain the output of the program when it    #
+#   will be run) and a third file named "expected.txt" (it must contain the  #
+#                    expected output of the program).                        #
+#                                                                            #
+#   ¤ For the 5th test, you need 3 files : one named "hantill_test1"         #
+#   (same as the file needed for the 1st test), a second empty file named    #
+#     "output.txt" (it will contain the output of the program when it will   #
+#     be run) and a third file named "output_test1" (it must contain the     #
+#                    expected output of the program).                        #
+#                                                                            #
+#   ¤ For the 6th test, you need 3 files : one named "hantill_test2"         #
+#   (same as the file needed for the 1st test), a second empty file named    #
+#     "output.txt" (it will contain the output of the program when it will   #
+#     be run) and a third file named "output_test2" (it must contain the     #
+#                    expected output of the program).                        #
+#                                                                            #
+#    --------------------------------------------------------------------    #
+#                                                                            #
+#   WARNING !!! ALL THE WANTED FILES MUST BE INTO THE BONUS DIRECTORY !!!    #
+#                                                                            #
+#    --------------------------------------------------------------------    #
+#                                                                            #
+##############################################################################

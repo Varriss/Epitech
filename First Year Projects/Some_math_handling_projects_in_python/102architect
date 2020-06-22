@@ -1,0 +1,173 @@
+#!/usr/bin/python3
+##
+## EPITECH PROJECT, 2019
+## 102architect_2019
+## File description:
+## 102archiprog
+##
+
+import sys
+import math
+
+class coord:
+    x = 0
+    y = 0
+
+def create_matrix(c, r):
+    matri_1 = []
+
+    matri_1 = [[0 for j in range(0, c)]for i in range(0, r)]
+    return (matri_1)
+
+def get_reflect_matr(degree):
+    refl_matr = create_matrix(3, 3)
+
+    rad = 0.0174532925 * degree
+    refl_matr[0][0] = math.cos(2*rad)
+    refl_matr[1][0] = math.sin(2*rad)
+    refl_matr[0][1] = math.sin(2*rad)
+    refl_matr[1][1] = -(math.cos(2*rad))
+    refl_matr[2][2] = 1
+    if (refl_matr[1][1] == -0):
+        refl_matr[1][1] == -0
+    return (refl_matr)
+
+def get_scal_matr(s_x, s_y):
+    scal_matr = create_matrix(3, 3)
+    scal_matr[0][0] = s_x
+    scal_matr[1][1] = s_y
+    scal_matr[2][2] = 1
+    return (scal_matr)
+
+def get_rotat_matr(degree):
+    rotat_matr = create_matrix(3, 3)
+
+    rad = 0.0174532925 * degree
+    rotat_matr[0][0] = math.cos(rad)
+    rotat_matr[1][1] = math.cos(rad)
+    rotat_matr[0][1] = math.sin(rad)
+    rotat_matr[1][0] = -(math.sin(rad))
+    rotat_matr[2][2] = 1
+    return (rotat_matr)
+
+def get_transl_matr(t_x, t_y):
+    trans_matr = create_matrix(3, 3)
+    trans_matr[0][0] = 1
+    trans_matr[1][1] = 1
+    trans_matr[2][2] = 1
+    trans_matr[2][0] = t_x
+    trans_matr[2][1] = t_y
+    return (trans_matr)
+
+def matrix_mult(apply, target):
+    r = len(apply[0])
+    c = len(target)
+    res = create_matrix(r, c)
+    one = coord()
+    two = coord()
+
+    while one.y < r:
+        while two.x < c:
+            while one.x < r:
+                res[two.x][one.y] += (apply[one.x][one.y] * target[two.x][two.y])
+                one.x += 1
+                two.y += 1
+            two.y = 0
+            one.x = 0
+            two.x += 1
+        two.y = 0
+        one.x = 0
+        two.x = 0
+        one.y += 1
+    return(res)
+
+class fact:
+    def __init__(self):
+        self.factory = {
+            '-t' : self.transl,
+            '-z' : self.scale,
+            '-r' : self.rotate,
+            '-s' : self.reflect
+        }
+
+    def transl(self, link, args):
+        link.j += 1
+        link.str += str("Translation along vector ("+args[link.j]+", "+args[link.j + 1]+")")+"\n"
+        transfo = get_transl_matr(int(args[link.j]), int(args[link.j + 1]));
+        link.target = matrix_mult(transfo, link.target)
+        link.j += 1
+        link.transfo = matrix_mult(transfo, link.transfo)
+        return (link)
+
+    def scale(self, link, args):
+        link.j += 1
+        link.str += str("Scaling by factors "+args[link.j]+" and "+args[link.j + 1])+"\n"
+        transfo = get_scal_matr(int(args[link.j]), int(args[link.j + 1]));
+        link.target = matrix_mult(transfo, link.target)
+        link.j += 1
+        link.transfo = matrix_mult(transfo, link.transfo)
+        return (link)
+
+    def rotate(self, link, args):
+        link.j += 1
+        link.str += str("Rotation by a "+args[link.j]+" degree angle")+"\n"
+        transfo = get_rotat_matr(int(args[link.j]));
+        link.target = matrix_mult(transfo, link.target)
+        link.transfo = matrix_mult(transfo, link.transfo)
+        return (link)
+    
+    def reflect(self, link, args):
+        link.j += 1
+        link.str += str("Reflection over an axis with an inclination angle of "+args[link.j]+" degrees")+"\n"
+        transfo = get_reflect_matr(int(args[link.j]));
+        link.target = matrix_mult(transfo, link.target)
+        link.transfo = matrix_mult(transfo, link.transfo)
+        return (link)
+
+class rank_targ:
+    target = create_matrix(3, 1)
+    transfo = create_matrix(3, 3)
+    transfo[0][0] = 1
+    transfo[1][1] = 1
+    transfo[2][2] = 1
+    j = 3
+    str = ""
+
+def print_transfo(transfo):
+    print ("%.2f" % transfo[0][0]+"\t"+"%.2f" % transfo[1][0]+"\t"+"%.2f" % transfo[2][0])
+    print ("%.2f" % transfo[0][1]+"\t"+"%.2f" % transfo[1][1]+"\t"+"%.2f" % transfo[2][1])
+    print ("%.2f" % transfo[0][2]+"\t"+"%.2f" % transfo[1][2]+"\t"+"%.2f" % transfo[2][2])
+
+def disp_usage(crash):
+    print("USAGE\n\t./102architect x y transfo1 arg11 [arg12] [transfo2 arg12 [arg22]] ...\n\n")
+    print("DESCRIPTION\n\tx   abscissa of the original point\n\ty   ordinate of the original point\n")
+    print("\ttransfo arg1 [arg2]\n\t-t i j  translation along vector (i, j)\n\t-z m n  scaling by factors m (x-axis) and n (y-axis)\n\t-r d    rotation centered in O by a d degree angle\n\t-s d    reflection over the axis passing through O with an inclination\n\t\tangle of d degrees")
+    if (crash == 1):
+        exit(84)
+    else:
+        exit(0)
+
+def main(args):
+    if (len(args) < 2):
+        disp_usage(1)
+    if (args[1] == "-h"):
+        disp_usage(0)
+    else:
+        try:
+            mat = fact()
+            link = rank_targ()
+            link.target[0][0] = int(args[1])
+            link.target[0][1] = int(args[2])
+            link.target[0][2] = 1
+            i = len(args)
+
+            while link.j < i:
+                link = mat.factory[args[link.j]](link, args)
+                link.j += 1
+        except:
+            disp_usage(1)
+    print(link.str, end = '')
+    print_transfo(link.transfo)
+    print("("+"%.2f" % int(args[1])+", "+"%.2f" % int(args[2])+") => ("+"%.2f" % link.target[0][0]+", "+"%.2f" % link.target[0][1]+")")
+if __name__ == "__main__":
+    main(sys.argv)

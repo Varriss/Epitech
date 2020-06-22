@@ -1,0 +1,7 @@
+.vscode
+*.o
+*.json
+*.gcno
+*.gcda
+vgcore.*
+*.a

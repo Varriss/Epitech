@@ -1,0 +1,276 @@
+#!/usr/bin/python3
+##
+## EPITECH PROJECT, 2019
+## 103cipher_2019
+## File description:
+## 103cipher
+##
+
+import sys
+import math
+
+class coord:
+    x = 0
+    y = 0
+
+def create_matrix(r, c):
+    matri_1 = []
+
+    matri_1 = [[0 for j in range(0, c)]for i in range(0, r)]
+    return (matri_1)
+
+def be_deter(target, deter):
+    res = create_matrix(3, 3)
+
+    for i in range (0, 3):
+        res[i][0] = (1/deter) * target[i][0]
+        res[i][1] = (1/deter) * target[i][1]
+        res[i][2] = (1/deter) * target[i][2]
+    return (res)
+
+def get_adjugate(target):
+    target[0][1] , target[1][0] = target[1][0] , target[0][1]
+    target[0][2] , target[2][0] = target[2][0] , target[0][2]
+    target[1][2] , target[2][1] = target[2][1] , target[1][2]
+    return (target)
+
+def get_cofactors(tar):
+    tar[1][0] *= -1
+    tar[0][1] *= -1
+    tar[2][1] *= -1
+    tar[1][2] *= -1
+    return (tar)
+
+##hardcodingisashittything
+def get_minors(target):
+    res = create_matrix(3, 3)
+    
+    res[0][0] = (target[1][1] * target[2][2]) - (target[1][2] * target[2][1])
+    res[1][0] = (target[0][1] * target[2][2]) - (target[0][2] * target[2][1])
+    res[2][0] = (target[0][1] * target[1][2]) - (target[1][1] * target[0][2])
+    res[0][1] = (target[1][0] * target[2][2]) - (target[2][0] * target[1][2])
+    res[1][1] = (target[0][0] * target[2][2]) - (target[0][2] * target[2][0])
+    res[2][1] = (target[0][0] * target[1][2]) - (target[1][0] * target[0][2])
+    res[0][2] = (target[1][0] * target[2][1]) - (target[2][0] * target[1][1])
+    res[1][2] = (target[0][0] * target[2][1]) - (target[0][1] * target[2][0])
+    res[2][2] = (target[0][0] * target[1][1]) - (target[1][0] * target[0][1])
+    return (res)
+
+def get_deter_3(tar):
+    a = tar[0][0] * ((tar[1][1] * tar[2][2]) - (tar[1][2] * tar[2][1]))
+    b = tar[1][0] * ((tar[0][1] * tar[2][2]) - (tar[0][2] * tar[2][1]))
+    c = tar[2][0] * ((tar[0][1] * tar[1][2]) - (tar[1][1] * tar[0][2]))
+    deter = a - b + c
+    return (deter)
+
+def get_deter_2(tar):
+    deter = (tar[0][0] * tar[1][1]) - (tar[0][1] * tar[1][0])
+    return (deter)
+
+def swapthatlikethis(tar):
+    res = create_matrix(2, 2)
+    
+    res[1][1] = tar[0][0]
+    res[0][0] = tar[1][1]
+    res[0][1] = (tar[0][1]) * -1
+    res[1][0] = (tar[1][0]) * -1
+    return (res)
+
+def be_deter_2(target, deter):
+    res = create_matrix(2, 2)
+
+    for i in range (0, 2):
+        res[i][0] = (1/deter) * target[i][0]
+        res[i][1] = (1/deter) * target[i][1]
+    return (res)
+
+def inverse_matrix_2(target):
+    res = create_matrix(2, 2)
+    deter = get_deter_2(target)
+    res = swapthatlikethis(target)
+    res = be_deter_2(res, deter)
+    return (res)
+
+def inverse_matrix_3(target):
+    res = create_matrix(3, 3)
+    deter = get_deter_3(target)
+    res = get_minors(target)
+    res = get_cofactors(res)
+    res = get_adjugate(res)
+    res = be_deter(res, deter)
+    return (res)
+
+def get_key(mail, size):
+    maillen = len(mail)
+    r = maillen/size
+    x = 0
+    y = 0
+
+    if r - int(r) > 0:
+        r = int(r) + 1
+    else:
+        r = int(r)
+    if r < size:
+        r = size
+    res = create_matrix(size, r)
+    for i in range (0, maillen): 
+        if (x == size):
+            x = 0
+            y += 1
+            res[x][y] = ord(mail[i])
+            x += 1
+        else:
+            res[x][y] = ord(mail[i])
+            x += 1
+    return (res)
+
+def matrix_mult(apply, target):
+    r = len(apply[0])
+    c = len(target)
+    res = create_matrix(c, r)
+    one = coord()
+    two = coord()
+
+    while one.y < r:
+        while two.x < c:
+            while one.x < c:
+                res[two.x][one.y] += (apply[one.x][one.y] * target[two.x][two.y])
+                one.x += 1
+                two.y += 1
+            two.y = 0
+            one.x = 0
+            two.x += 1
+        two.y = 0
+        one.x = 0
+        two.x = 0
+        one.y += 1
+    return(res)
+
+def disp_usage(crash):
+    print("USAGE\n\t./103cipher message key flag\n\n")
+    print("DESCRIPTION\n\tmessage\ta message made of ASCII characters\n\tkey\tthe encryption key, made of ASCII characters\n", end="")
+    print("\tflag\t0 for the message to be encrypted, 1 to be decrypted")
+    if (crash == 1):
+        exit(84)
+    else:
+        exit(0)
+
+def get_encrypted(mail, size):
+    msg_list = mail.split()
+    col = int(len(msg_list)/size)
+    a = 0
+    
+    res = create_matrix(size, int(col))
+    for y in range(0, col):
+        for x in range(0, size):
+            res[x][y] = int(msg_list[a])
+            a += 1
+    return(res)
+
+def print_decrypted(matrix, size):
+    matr_heigth = len(matrix[0])
+
+    print("\nEncrypted message:")
+    for y in range (0, matr_heigth):
+        for x in range (0, size):
+            print(chr(int(round(matrix[x][y]))), end="")
+
+def print_encrypted(matrix, size):
+    print("\nEncrypted message:")
+    if size == 1:
+        for y in range (len(matrix[0]) - 1):
+            print (str(matrix[0][y]), end=" ")
+        print (str(matrix[0][y + 1]), end="")
+    elif size == 2:
+        for y in range (len(matrix[0]) - 1):
+            print (str(matrix[0][y])+" "+str(matrix[1][y]), end=" ")
+        print (str(matrix[0][y + 1])+" "+str(matrix[1][y + 1]), end="")
+    else:
+        for y in range (len(matrix[0]) - 1):
+            print (str(matrix[0][y])+" "+str(matrix[1][y])+" "+str(matrix[2][y]), end=" ")
+        print (str(matrix[0][y + 1])+" "+str(matrix[1][y + 1])+" "+str(matrix[2][y + 1]), end="")
+
+## mode 0 = encrypt, 1 = decrypt
+def set_mode(mail, word_key, mode):
+    size = len(word_key)
+    if size == 1:
+        size = 1
+        key = get_key(word_key, size)
+        kkey = [[0]]
+        kkey[0][0] = 1/(key[0][0])
+        deter = key[0][0]
+    elif size > 1 and size < 5:
+        size = 2
+        key = get_key(word_key, size)
+        deter = get_deter_2(key)
+        if deter == 0:
+            print("Invalid decryption key, unreversible.")
+            exit(84)
+        if mode == 1:
+            kkey = inverse_matrix_2(key)
+    elif size > 4 and size < 10:
+        size = 3
+        key = get_key(word_key, size)
+        deter = get_deter_3(key)
+        if deter == 0:
+            print("Invalid decryption key, unreversible.")
+            exit(84)
+        if mode == 1:
+            kkey = inverse_matrix_3(key)
+    else:
+        print("Invalid encryption key, too long size.")
+        exit(84)
+    if mode == 0:
+        print_key(key, 0, size)
+        mail = get_key(mail, size)
+        transcrypted = matrix_mult(mail, key)
+        print_encrypted(transcrypted, size)
+    elif mode == 1:
+        print_key(kkey, 1, size)
+        mail = get_encrypted(mail, size)
+        transcrypted = matrix_mult(mail, kkey)
+        print_decrypted(transcrypted, size)
+    else:
+        exit(84)
+
+def print_key(key, floa, size):
+    if floa == 0:
+        print("Key matrix:")
+        if size == 1:
+            print(str(key[0][0]))
+        elif size == 2:
+            for y in range (0, len(key[0])):
+                print(str(key[0][y])+"\t"+str(key[1][y]))
+                y += 1
+        elif size == 3:
+            for y in range (0, len(key[0])):
+                print (str(key[0][y])+"\t"+str(key[1][y])+"\t"+str(key[2][y]))
+                y += 1
+    else:
+        print("Key matrix:")
+        if size == 1:
+            print("%.3f" % (key[0][0]))
+        elif size == 2:
+            for y in range (0, len(key[0])):
+                print ("%.3f" % (key[0][y])+"\t"+"%.3f" % (key[1][y]))
+                y += 1
+        elif size == 3:
+            for y in range (0, len(key[0])):
+                print ("%.3f" % (key[0][y])+"\t"+"%.3f" % (key[1][y])+"\t"+"%.3f" % (key[2][y]))
+                y += 1
+        
+
+def main(args):
+    if (len(args) != 2) and (len(args) != 4):
+        disp_usage(1)
+    if (args[1] == "-h"):
+        disp_usage(0)
+    else:
+        try:
+            set_mode(str(args[1]), str(args[2]), int(args[3]))
+            print("\n", end = "")
+        except:
+            disp_usage(1)
+
+if __name__ == "__main__":
+    main(sys.argv)

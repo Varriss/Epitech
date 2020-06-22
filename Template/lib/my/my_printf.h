@@ -23,6 +23,7 @@ void my_put_nbr_hex_va(va_list ap);
 void my_put_nbr_upperhex_va(va_list ap);
 void my_put_nbr_bin_va(va_list ap);
 void my_put_pointer_adress(va_list ap);
+void my_put_str_array(va_list ap);
 
 int is_flag(char *str, int i);
 void manage_flags(char *format, int i, va_list ap);
