@@ -13,7 +13,7 @@ player_t *player)
 {
     list_t *enemy = find_object(scene, enemy_type);
 
-    if ((player->animeted == 0) && (player->turn == 1)
+    if ((player->animeted == 0) && (player->turn == 1) && prog_stat && eve
     && (player->defense == 1)) {
         player->inventory->items[shield_type]->shield->quest_completion++;
         player->turn = 2;
