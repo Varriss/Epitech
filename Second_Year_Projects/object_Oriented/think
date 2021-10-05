@@ -1,6 +1,0 @@
-event -> récuperation depuis lib graph
-    -> faire passer au game de facon generique
-
-update -> prend event
-    -> le traduit
-    -> modfier world
